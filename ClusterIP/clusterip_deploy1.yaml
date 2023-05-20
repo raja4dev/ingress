@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-deployment
+spec:
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: hello
+        image: gcr.io/google-samples/hello-app:2.0
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-service
+spec:
+  type: ClusterIP
+  selector:
+    app: hello
+  ports:
+  - port: 8000 #My wish
+    targetPort: 8080
